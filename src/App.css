@@ -1,8 +1,40 @@
+body{
+    background-color: rgb(61, 75, 146);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
 .app{
-    height: 100vh;
-    width: 100vw;
+    height: auto;
+    width: 400px;   
+    margin: 50% auto;
+    padding: 20px;
     background-color: rgb(30, 30, 30);
+    border-radius: 5px;
     color: rgb(227, 227, 227);
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.todo-input{
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.todo-input-item{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.btn-area{
+    display: flex;
+    gap: 5px;
 }
 
 h1{
@@ -13,4 +45,26 @@ h1{
 p{
     font-size: 20px;    
     font-weight: 500;
+}
+
+input{
+    height: 30px;
+    width: 300px;
+    border: 1px solid #232323;
+    border-radius: 3px;
+}
+
+button{
+    height: 30px;
+    width: 80px;
+    background-color: #999999;
+    border: 1px solid #232323;
+    border-radius: 3px;
+    font-weight: 700;
+    color: #1e1e1e;
+}
+
+label{
+    font-size: 20px;
+    font-weight: 600;
 }
