@@ -20,17 +20,17 @@ function App() {
             </button>
           </div>
         </div>
-      </div>
 
-      <div className="btn-area">
-        <button>Todo</button>
-        <button>Completed</button>
-      </div>
+        <div className="btn-area">
+          <button>Todo</button>
+          <button>Completed</button>
+        </div>
 
-      <div className="todo-list">
-        <div className="todo-list-item">
-          <h3>Task 1</h3>
-          <p>Description</p>
+        <div className="todo-list">
+          <div className="todo-list-item">
+            <h3>Task 1</h3>
+            <p>Description</p>
+          </div>
         </div>
       </div>
     </div>
