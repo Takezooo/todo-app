@@ -1,30 +1,27 @@
 @import url(https://fonts.bunny.net/css?family=bebas-neue:400|poppins:100,200,300,400,500,600,700,800,900);
 body{
-    background-color: rgb(61, 75, 146);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-color: rgb(237, 235, 235);
     overflow: hidden;
 }
 
-.app{
-    height: auto;
-    width: 400px;   
-    margin: 50% auto;
-    padding: 20px;
-    background-color: rgb(30, 30, 30);
-    border-radius: 5px;
-    color: rgb(227, 227, 227);
-
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+.todo-wrapper{
+    background-color: rgb(32, 32, 32) ;
+    padding: 4%;
+    width: fit-content;
+    margin: 4% auto;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0px 5px 7px rgb(39, 39, 39);
 }
 
 .todo-input{
     display: flex;
-    flex-direction: column;
-    gap: 7px;
+    align-items: center;
+    justify-content: center;
+    border-bottom:  1px solid rgb(84, 84, 84);
+    padding-bottom: 6%;
+    margin-bottom: 3%;
+    gap: 10px;
 }
 
 .todo-input-item{
@@ -39,8 +36,11 @@ body{
 }
 
 h1{
+    text-align: center;
     font-family: 'Bebas Neue', display;
-    font-size: 30px;
+    font-size: 40px;
+    letter-spacing: 1px;
+    color: rgb(32, 32, 32)
 }
 
 p{
@@ -56,9 +56,14 @@ input{
     border-radius: 3px;
 }
 
+input:focus {
+    outline: 2px solid #6a6afa;
+}
+
 button{
     height: 30px;
-    width: 80px;
+    width: fit-content;
+    
     background-color: #999999;
     border: 1px solid #232323;
     border-radius: 3px;
@@ -71,4 +76,5 @@ label{
     font-family: 'Poppins', sans-serif;
     font-size: 20px;
     font-weight: 600;
+    color: rgb(237, 237, 237);
 }
