@@ -107,3 +107,17 @@ label{
     background-color: rgb(83, 82, 82);
     color: rgb(168, 168, 168);
 }
+
+.todo-list{
+    display: flex;
+    flex-direction: column;
+}
+
+.todo-list-item{
+    margin: 1% 0;
+    background-color: rgb(83, 82, 82);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 25px;
+}
