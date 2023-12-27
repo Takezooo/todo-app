@@ -6,6 +6,9 @@ import "./App.css";
 
 function App() {
   const [isCompleteScrn, setIsCompleteScrn] = useState(false);
+  const [allTodos, setTodos] = useState([]);
+  const [newTitle, setNewTitle] = useState("");
+  const [newDescription, setNewDescription] = useState("");
   return (
     <div className="App">
       <h1>My Todo List</h1>
