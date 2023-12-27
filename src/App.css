@@ -1,16 +1,17 @@
 @import url(https://fonts.bunny.net/css?family=bebas-neue:400|poppins:100,200,300,400,500,600,700,800,900);
 
 body{
-    background-color: rgb(170, 170, 170);
+    background-color: rgb(32, 32, 32);
     overflow: hidden;
 }
 
 h1{
     text-align: center;
     font-family: 'Bebas Neue', display;
-    font-size: 40px;
+    font-size: 55px;
     letter-spacing: 1px;
-    color: rgb(32, 32, 32)
+    color: rgb(237, 237, 237);
+    margin-top: 4%;
 }
 
 h3{
@@ -18,10 +19,11 @@ h3{
     font-size: 25px; 
     letter-spacing: 1px;   
     color: rgb(237, 237, 237);
+    margin: 0;
 }
 
 p{
-    font-size: 20px;    
+    font-size: 16px;    
     font-weight: 400;
     font-family: 'Poppins', sans-serif;
     color: rgb(237, 237, 237);
@@ -53,7 +55,8 @@ label{
     margin: 4% auto;
     max-height: 80vh;
     overflow-y: auto;
-    box-shadow: 0px 5px 7px rgb(39, 39, 39);
+    border-radius: 7px;
+    box-shadow: 0px 1px 10px 5px rgb(52, 52, 52);
 }
 
 .todo-input{
@@ -120,4 +123,14 @@ label{
     justify-content: space-between;
     align-items: center;
     padding: 10px 25px;
+}
+
+.delete-icon{
+    font-size: 18px;
+    color: rgb(254, 95, 95);
+}
+
+.check-icon{
+    font-size: 18px;
+    color: rgb(1, 255, 136);
 }
