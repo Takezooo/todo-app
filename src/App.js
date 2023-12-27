@@ -1,6 +1,8 @@
+import { useState } from "react";
 import "./App.css";
 
 function App() {
+  const [isCompleteScrn, setIsCompleteScrn] = useState(false);
   return (
     <div className="App">
       <h1>My Todo List</h1>
@@ -22,8 +24,8 @@ function App() {
         </div>
 
         <div className="btn-area">
-          <button>Todo</button>
-          <button>Completed</button>
+          <button className="secondaryBtn">Todo</button>
+          <button className="secondaryBtn">Completed</button>
         </div>
 
         <div className="todo-list">

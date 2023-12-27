@@ -39,17 +39,6 @@ input:focus {
     outline: 2px solid #6a6afa;
 }
 
-button{
-    height: 30px;
-    width: fit-content;
-    background-color: #999999;
-    border: 1px solid #232323;
-    border-radius: 3px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500;
-    color: #1e1e1e;   
-}
-
 label{
     font-family: 'Poppins', sans-serif;
     font-size: 20px;
@@ -84,8 +73,34 @@ label{
     gap: 5px;
 }
 
-.btn-area{
-    display: flex;
-    gap: 5px;
+
+.primaryBtn{
+    background-color: rgb(142, 142, 142);
+    color: rgb(59, 59, 59);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    border: none;
+    border-radius: 2px;
+    margin-top: 58%;
+    padding: 10.5px;
+    width: 60px;
+    cursor: pointer;
+}
+
+.primaryBtn:hover{
+    background-color: rgb(73, 73, 73);
+    color: rgb(142, 142, 142);
+}
+
+.secondaryBtn{
+    background-color: rgb(168, 166, 166);
+    color: rgb(59, 59, 59);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    border: none;
+    margin-top: 58%;
+    padding: 10.5px;
+    width: fit-content;
+    cursor: pointer;
 }
 
