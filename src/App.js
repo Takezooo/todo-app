@@ -1,5 +1,6 @@
 import { useState } from "react";
-import {AiOutlineDelete} from 'react-icons/ai';
+import { AiOutlineDelete } from "react-icons/ai";
+import { CiEdit } from "react-icons/ci";
 import { LuCheck } from "react-icons/lu";
 import "./App.css";
 
@@ -26,19 +27,31 @@ function App() {
         </div>
 
         <div className="btn-area">
-          <button className={`secondaryBtn ${isCompleteScrn === false && 'active'}`} onClick={()=>setIsCompleteScrn(false)}>Todo</button>
-          <button className={`secondaryBtn ${isCompleteScrn === true && 'active'}`} onClick={()=>setIsCompleteScrn(true)}>Completed</button>
+          <button
+            className={`secondaryBtn ${isCompleteScrn === false && "active"}`}
+            onClick={() => setIsCompleteScrn(false)}
+          >
+            Todo
+          </button>
+          <button
+            className={`secondaryBtn ${isCompleteScrn === true && "active"}`}
+            onClick={() => setIsCompleteScrn(true)}
+          >
+            Completed
+          </button>
         </div>
 
         <div className="todo-list">
           <div className="todo-list-item">
-            <h3>Task 1</h3>
-            <p>Description</p>
-          </div>
-
-          <div>
-            <AiOutlineDelete className="delete-icon"/>
-            <LuCheck className="check-icon" />
+            <div>
+              <h3>Task 1</h3>
+              <p>Description</p>
+            </div>
+            <div className="icon-area">
+              <AiOutlineDelete className="delete-icon" />
+              <CiEdit className="edit-icon" />
+              <LuCheck className="check-icon" />
+            </div>
           </div>
         </div>
       </div>
