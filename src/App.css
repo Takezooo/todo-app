@@ -1,7 +1,7 @@
 @import url(https://fonts.bunny.net/css?family=bebas-neue:400|poppins:100,200,300,400,500,600,700,800,900);
 
 body{
-    background-color: rgb(237, 235, 235);
+    background-color: rgb(170, 170, 170);
     overflow: hidden;
 }
 
@@ -73,7 +73,6 @@ label{
     gap: 5px;
 }
 
-
 .primaryBtn{
     background-color: rgb(142, 142, 142);
     color: rgb(59, 59, 59);
@@ -98,9 +97,13 @@ label{
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
     border: none;
-    margin-top: 58%;
+    margin-top: 3%;
     padding: 10.5px;
     width: fit-content;
     cursor: pointer;
 }
 
+.active{
+    background-color: rgb(83, 82, 82);
+    color: rgb(168, 168, 168);
+}

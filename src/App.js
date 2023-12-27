@@ -24,8 +24,8 @@ function App() {
         </div>
 
         <div className="btn-area">
-          <button className="secondaryBtn">Todo</button>
-          <button className="secondaryBtn">Completed</button>
+          <button className={`secondaryBtn ${isCompleteScrn === false && 'active'}`} onClick={()=>setIsCompleteScrn(false)}>Todo</button>
+          <button className={`secondaryBtn ${isCompleteScrn === true && 'active'}`} onClick={()=>setIsCompleteScrn(true)}>Completed</button>
         </div>
 
         <div className="todo-list">
