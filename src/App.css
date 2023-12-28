@@ -30,6 +30,10 @@ p{
     margin: 0;
 }
 
+small{
+    color: rgba(237, 237, 237, .5);
+}
+
 input{
     height: 30px;
     width: 300px;

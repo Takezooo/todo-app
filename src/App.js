@@ -52,6 +52,7 @@ function App() {
     let updatedCompletedArr = [...completedTasks];
     updatedCompletedArr.push(filteredItem);
     setCompletedTasks(updatedCompletedArr);
+    handleDeleteItem(index);
   };
 
   useEffect(() => {
@@ -141,16 +142,12 @@ function App() {
                   <div>
                     <h3>{item.title}</h3>
                     <p>{item.description}</p>
+                    <p><small>Completed On: {item.completedOn}</small></p>
                   </div>
                   <div className="icon-area">
                     <AiOutlineDelete
                       className="delete-icon"
                       onClick={handleDeleteItem}
-                    />
-                    <CiEdit className="edit-icon" />
-                    <LuCheck
-                      className="check-icon"
-                      onClick={() => handleCompleted(index)}
                     />
                   </div>
                 </div>
