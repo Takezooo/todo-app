@@ -95,7 +95,7 @@ function App() {
                 <div className="icon-area">
                   <AiOutlineDelete
                     className="delete-icon"
-                    onClick={removeItem =}
+                    onClick={() => setTodos(allTodos.filter((o, i) => index !== i))}
                   />
                   <CiEdit className="edit-icon" />
                   <LuCheck className="check-icon" />
