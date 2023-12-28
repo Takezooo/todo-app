@@ -9,6 +9,7 @@ function App() {
   const [allTodos, setTodos] = useState([]);
   const [newTitle, setNewTitle] = useState("");
   const [newDescription, setNewDescription] = useState("");
+  const [completedTasks, setCompletedTasks] = useState([]);
 
   const handleAddItem = () => {
     let newTodoItem = {
@@ -31,6 +32,18 @@ function App() {
 
     localStorage.setItem("todolist", JSON.stringify(removeTodo));
   };
+
+  const handleCompleted = (index) => {
+    let now = new Date();
+    let dd = now.getDate();
+    let mm = now.getMonth() + 1;
+    let yyyy = now.getFullYear();
+    let h = now.getHours();
+    let m = now.getMinutes();
+    let s = now.getSeconds();
+
+    let completedOn = `${mm}-${dd}-${yyyy} at ${h}:${m}:${s}`
+  }
 
   useEffect(() => {
     let savedTodo = JSON.parse(localStorage.getItem('todolist'));
@@ -102,7 +115,7 @@ function App() {
                     onClick={handleDeleteItem}
                   />  
                   <CiEdit className="edit-icon" />
-                  <LuCheck className="check-icon" />
+                  <LuCheck className="check-icon" onClick={() => handleCompleted(index)}/>
                 </div>
               </div>
             );
