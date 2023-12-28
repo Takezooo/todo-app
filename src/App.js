@@ -43,6 +43,15 @@ function App() {
     let s = now.getSeconds();
 
     let completedOn = `${mm}-${dd}-${yyyy} at ${h}:${m}:${s}`
+
+    let filteredItem = {
+      ...allTodos[index], 
+      completedOn:completedOn
+    }
+
+    let updatedCompletedArr = [...completedTasks];
+    updatedCompletedArr.push(filteredItem);
+    setCompletedTasks(updatedCompletedArr);
   }
 
   useEffect(() => {
