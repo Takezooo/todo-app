@@ -17,25 +17,35 @@ function App() {
       description: newDescription,
     };
 
-    let updatedTodoArr = [...allTodos];
-    updatedTodoArr.push(newTodoItem);
-    setTodos(updatedTodoArr);
-    localStorage.setItem("todolist", JSON.stringify(updatedTodoArr));
-    setNewTitle("");
-    setNewDescription("");
+    if (newTitle !== "" && newDescription !== "") {
+      let updatedTodoArr = [...allTodos];
+      updatedTodoArr.push(newTodoItem);
+      setTodos(updatedTodoArr);
+      localStorage.setItem("todolist", JSON.stringify(updatedTodoArr));
+      setNewTitle("");
+      setNewDescription("");
+    } else {
+      if (newTitle === "") {
+        alert("Please add Title to your task");
+      } else if (newDescription === "") {
+        alert("Please add Description to your task");
+      } else {
+        alert("Please add Title and Description to your task");
+      }
+    }
   };
 
   const handleDeleteItem = (index) => {
     let removeTodo = [...allTodos];
-    removeTodo.splice(index);
+    removeTodo.splice(index, 1);
     setTodos(removeTodo);
 
     localStorage.setItem("todolist", JSON.stringify(removeTodo));
   };
 
-  const handleDeleteCompleted= (index) => {
+  const handleDeleteCompleted = (index) => {
     let removeCompleted = [...completedTasks];
-    removeCompleted.splice(index);
+    removeCompleted.splice(index, 1);
     setCompletedTasks(removeCompleted);
 
     localStorage.setItem("completeTask", JSON.stringify(removeCompleted));
@@ -62,6 +72,25 @@ function App() {
     setCompletedTasks(updatedCompletedArr);
     handleDeleteItem(index);
     localStorage.setItem("completeTask", JSON.stringify(updatedCompletedArr));
+  };
+
+  const handleEditItem = (index) => {
+    if (index !== null) {
+      let updatedTodoArr = [...allTodos];
+      updatedTodoArr[index] = {
+        title: newTitle,
+        description: newDescription,
+      };
+      setTodos(updatedTodoArr);
+      localStorage.setItem("todolist", JSON.stringify(updatedTodoArr));
+      setNewTitle("");
+      setNewDescription("");
+    }
+  };
+
+  const handleClearCompletedTasks = () => {
+    setCompletedTasks([]);
+    localStorage.removeItem("completeTask");
   };
 
   useEffect(() => {
@@ -139,7 +168,10 @@ function App() {
                       className="delete-icon"
                       onClick={handleDeleteItem}
                     />
-                    <CiEdit className="edit-icon" />
+                    <CiEdit
+                      className="edit-icon"
+                      onClick={() => handleEditItem(index)}
+                    />
                     <LuCheck
                       className="check-icon"
                       onClick={() => handleCompleted(index)}
@@ -149,6 +181,13 @@ function App() {
               );
             })}
 
+          <button
+            className={`clearAll ${isCompleteScrn === true && "show"}`}
+            onClick={handleClearCompletedTasks}
+          >
+            Clear Completed{" "}
+          </button>
+
           {isCompleteScrn === true &&
             completedTasks.map((item, index) => {
               return (
@@ -156,7 +195,9 @@ function App() {
                   <div>
                     <h3>{item.title}</h3>
                     <p>{item.description}</p>
-                    <p><small>Completed On: {item.completedOn}</small></p>
+                    <p>
+                      <small>Completed On: {item.completedOn}</small>
+                    </p>
                   </div>
                   <div className="icon-area">
                     <AiOutlineDelete
