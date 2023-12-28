@@ -25,9 +25,9 @@ function App() {
       setNewTitle("");
       setNewDescription("");
     } else {
-      if (newTitle === "") {
+      if (newTitle === "" && newDescription !== "") {
         alert("Please add Title to your task");
-      } else if (newDescription === "") {
+      } else if (newTitle !== "" && newDescription === "") {
         alert("Please add Description to your task");
       } else {
         alert("Please add Title and Description to your task");
