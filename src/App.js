@@ -42,20 +42,20 @@ function App() {
     let m = now.getMinutes();
     let s = now.getSeconds();
 
-    let completedOn = `${mm}-${dd}-${yyyy} at ${h}:${m}:${s}`
+    let completedOn = `${mm}-${dd}-${yyyy} at ${h}:${m}:${s}`;
 
     let filteredItem = {
-      ...allTodos[index], 
-      completedOn:completedOn
-    }
+      ...allTodos[index],
+      completedOn: completedOn,
+    };
 
     let updatedCompletedArr = [...completedTasks];
     updatedCompletedArr.push(filteredItem);
     setCompletedTasks(updatedCompletedArr);
-  }
+  };
 
   useEffect(() => {
-    let savedTodo = JSON.parse(localStorage.getItem('todolist'));
+    let savedTodo = JSON.parse(localStorage.getItem("todolist"));
     if (savedTodo) {
       setTodos(savedTodo);
     }
@@ -111,24 +111,51 @@ function App() {
         </div>
 
         <div className="todo-list">
-          {allTodos.map((item, index) => {
-            return (
-              <div className="todo-list-item" key={index}>
-                <div>
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
+          {isCompleteScrn === false &&
+            allTodos.map((item, index) => {
+              return (
+                <div className="todo-list-item" key={index}>
+                  <div>
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
+                  </div>
+                  <div className="icon-area">
+                    <AiOutlineDelete
+                      className="delete-icon"
+                      onClick={handleDeleteItem}
+                    />
+                    <CiEdit className="edit-icon" />
+                    <LuCheck
+                      className="check-icon"
+                      onClick={() => handleCompleted(index)}
+                    />
+                  </div>
                 </div>
-                <div className="icon-area">
-                  <AiOutlineDelete
-                    className="delete-icon"
-                    onClick={handleDeleteItem}
-                  />  
-                  <CiEdit className="edit-icon" />
-                  <LuCheck className="check-icon" onClick={() => handleCompleted(index)}/>
+              );
+            })}
+
+          {isCompleteScrn === true &&
+            completedTasks.map((item, index) => {
+              return (
+                <div className="todo-list-item" key={index}>
+                  <div>
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
+                  </div>
+                  <div className="icon-area">
+                    <AiOutlineDelete
+                      className="delete-icon"
+                      onClick={handleDeleteItem}
+                    />
+                    <CiEdit className="edit-icon" />
+                    <LuCheck
+                      className="check-icon"
+                      onClick={() => handleCompleted(index)}
+                    />
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </div>
     </div>
