@@ -10,7 +10,7 @@ function App() {
   const [newTitle, setNewTitle] = useState("");
   const [newDescription, setNewDescription] = useState("");
 
-  const handleAddTodo = () => {
+  const handleAddItem = () => {
     let newTodoItem = {
       title: newTitle,
       description: newDescription,
@@ -24,8 +24,12 @@ function App() {
     setNewDescription("");
   };
 
-  const removeItem = (index) => {
-    setTodos(allTodos.filter((o, i) => index !== i));
+  const handleDeleteItem = (index) => {
+    let removeTodo = [...allTodos];
+    removeTodo.splice(index);
+    setTodos(removeTodo);
+
+    localStorage.setItem("todolist", JSON.stringify(removeTodo));
   };
 
   useEffect(() => {
@@ -61,7 +65,7 @@ function App() {
           <div className="todo-input-item">
             <button
               type="button"
-              onClick={handleAddTodo}
+              onClick={handleAddItem}
               className="primaryBtn"
             >
               Add
@@ -95,8 +99,8 @@ function App() {
                 <div className="icon-area">
                   <AiOutlineDelete
                     className="delete-icon"
-                    onClick={() => setTodos(allTodos.filter((o, i) => index !== i))}
-                  />
+                    onClick={handleDeleteItem}
+                  />  
                   <CiEdit className="edit-icon" />
                   <LuCheck className="check-icon" />
                 </div>
