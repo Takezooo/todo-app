@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { CiEdit } from "react-icons/ci";
 import { LuCheck } from "react-icons/lu";
@@ -19,7 +19,21 @@ function App() {
     let updatedTodoArr = [...allTodos];
     updatedTodoArr.push(newTodoItem);
     setTodos(updatedTodoArr);
+    localStorage.setItem("todolist", JSON.stringify(updatedTodoArr));
+    setNewTitle("");
+    setNewDescription("");
   };
+
+  const removeItem = (index) => {
+    setTodos(allTodos.filter((o, i) => index !== i));
+  };
+
+  useEffect(() => {
+    let savedTodo = JSON.parse(localStorage.getItem('todolist'));
+    if (savedTodo) {
+      setTodos(savedTodo);
+    }
+  }, []);
 
   return (
     <div className="App">
@@ -79,7 +93,10 @@ function App() {
                   <p>{item.description}</p>
                 </div>
                 <div className="icon-area">
-                  <AiOutlineDelete className="delete-icon" />
+                  <AiOutlineDelete
+                    className="delete-icon"
+                    onClick={removeItem =}
+                  />
                   <CiEdit className="edit-icon" />
                   <LuCheck className="check-icon" />
                 </div>
