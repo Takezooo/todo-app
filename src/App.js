@@ -68,10 +68,12 @@ function App() {
 
   // Delete Tasks
   const handleDeleteItem = (index) => {
-    let removeTodo = [...allTodos];
-    removeTodo.splice(index, 1);
-    setTodos(removeTodo);
-    localStorage.setItem("todolist", JSON.stringify(removeTodo));
+    if (window.confirm("Are you sure you want to delete this task?")) {
+      let removeTodo = [...allTodos];
+      removeTodo.splice(index, 1);
+      setTodos(removeTodo);
+      localStorage.setItem("todolist", JSON.stringify(removeTodo));
+    }
   };
 
   //Delete Completed Tasks
@@ -99,7 +101,8 @@ function App() {
     let s = now.getSeconds();
 
     let completedOn = `${mm}-${dd}-${yyyy} at ${h}:${m}:${s}`;
-    {
+
+    if (window.confirm("Are you sure you want to mark this as completed?")) {
       let filteredItem = {
         ...allTodos[index],
         completedOn: completedOn,
@@ -209,7 +212,7 @@ function App() {
                   <div className="icon-area">
                     {isInputEnabled(index) ? (
                       <>
-                        <MdOutlineCancel 
+                        <MdOutlineCancel
                           className="delete-icon"
                           onClick={() => handleInputEnabled(index)}
                         />
