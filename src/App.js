@@ -15,30 +15,29 @@ function App() {
   const [enabledIndex, setEnabledIndex] = useState(null);
   const [IsEnabled, setEnabled] = useState(false);
 
-  const toggleInputEnabled = (index) => {
+  const handleInputEnabled = (index) => {
     setEnabledIndex((prevIndex) => (prevIndex === index ? null : index));
-    setEnabled((prevEnabled) => !prevEnabled);
   };
 
   const isInputEnabled = (index) => enabledIndex === index;
 
   const handleEdit = (index) => {
-    if (index !== null) {
-      let updatedTodoArr = [...allTodos];
-      updatedTodoArr[index] = {
-        title: editTitle,
-        description: editDescription,
-      };
-      setTodos(updatedTodoArr);
-      localStorage.setItem("todolist", JSON.stringify(updatedTodoArr));
-      setEditedTitle("");
-      setEditedDescription("");
+    if (editTitle !== "" && editDescription !== "") {
+      if (index !== null) {
+        let updatedTodoArr = [...allTodos];
+        updatedTodoArr[index] = {
+          title: editTitle,
+          description: editDescription,
+        };
+        setTodos(updatedTodoArr);
+        localStorage.setItem("todolist", JSON.stringify(updatedTodoArr));
+        setEditedTitle("");
+        setEditedDescription("");
+        handleInputEnabled(index);
+      }
+    } else {
+      alert("Please finish editing!");
     }
-  };
-
-  const handleInputAndEdit = (index) => {
-    toggleInputEnabled(index);
-    handleEdit(index);
   };
 
   const handleAddItem = () => {
@@ -69,7 +68,6 @@ function App() {
     let removeTodo = [...allTodos];
     removeTodo.splice(index, 1);
     setTodos(removeTodo);
-
     localStorage.setItem("todolist", JSON.stringify(removeTodo));
   };
 
@@ -77,7 +75,6 @@ function App() {
     let removeCompleted = [...completedTasks];
     removeCompleted.splice(index, 1);
     setCompletedTasks(removeCompleted);
-
     localStorage.setItem("completeTask", JSON.stringify(removeCompleted));
   };
 
@@ -102,8 +99,7 @@ function App() {
       setCompletedTasks(updatedCompletedArr);
       handleDeleteItem(index);
       localStorage.setItem("completeTask", JSON.stringify(updatedCompletedArr));
-    }
-    else{
+    } else {
       alert("Finish Editing first!");
     }
   };
@@ -205,17 +201,33 @@ function App() {
                     )}
                   </div>
                   <div className="icon-area">
-                    <AiOutlineDelete
-                      className="delete-icon"
-                      onClick={handleDeleteItem}
-                    />
-                    <CiEdit 
-                      className="edit-icon"
-                      onClick={() => handleInputAndEdit(index)} />
-                    <LuCheck
-                      className="check-icon"
-                      onClick={() => handleCompleted(index)}
-                    />
+                    {isInputEnabled(index) ? (
+                      <>
+                        <AiOutlineDelete
+                          className="delete-icon"
+                          onClick={() => handleInputEnabled(index)}
+                        />
+                        <LuCheck
+                          className="check-icon"
+                          onClick={() => handleEdit(index)}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <AiOutlineDelete
+                          className="delete-icon"
+                          onClick={() => handleDeleteItem(index)}
+                        />
+                        <CiEdit
+                          className="edit-icon"
+                          onClick={() => handleInputEnabled(index)}
+                        />
+                        <LuCheck
+                          className="check-icon"
+                          onClick={() => handleCompleted(index)}
+                        />
+                      </>
+                    )}
                   </div>
                 </div>
               );
@@ -242,7 +254,7 @@ function App() {
                   <div className="icon-area">
                     <AiOutlineDelete
                       className="delete-icon"
-                      onClick={handleDeleteCompleted}
+                      onClick={() => handleDeleteCompleted(index)}
                     />
                   </div>
                 </div>
