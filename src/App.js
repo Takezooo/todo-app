@@ -111,7 +111,10 @@ function App() {
       let updatedCompletedArr = [...completedTasks];
       updatedCompletedArr.push(filteredItem);
       setCompletedTasks(updatedCompletedArr);
-      handleDeleteItem(index);
+      let removeTodo = [...allTodos];
+      removeTodo.splice(index, 1);
+      setTodos(removeTodo);
+      localStorage.setItem("todolist", JSON.stringify(removeTodo));
       localStorage.setItem("completeTask", JSON.stringify(updatedCompletedArr));
     }
   };
