@@ -9,7 +9,35 @@ function App() {
   const [allTodos, setTodos] = useState([]);
   const [newTitle, setNewTitle] = useState("");
   const [newDescription, setNewDescription] = useState("");
+  const [editTitle, setEditedTitle] = useState("");
+  const [editDescription, setEditedDescription] = useState("");
   const [completedTasks, setCompletedTasks] = useState([]);
+  const [enabledIndex, setEnabledIndex] = useState(null);
+
+  const toggleInputEnabled = (index) => {
+    setEnabledIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
+
+  const isInputEnabled = (index) => enabledIndex === index;
+
+  const handleEdit = (index) => {
+    if (index !== null) {
+      let updatedTodoArr = [...allTodos];
+      updatedTodoArr[index] = {
+        title: editTitle,
+        description: editDescription,
+      };
+      setTodos(updatedTodoArr);
+      localStorage.setItem("todolist", JSON.stringify(updatedTodoArr));
+      setEditedTitle("");
+      setEditedDescription("");
+    }
+  };
+
+  const handleInputAndEdit = (index) => {
+    toggleInputEnabled(index);
+    handleEdit(index);
+  };
 
   const handleAddItem = () => {
     let newTodoItem = {
@@ -72,20 +100,6 @@ function App() {
     setCompletedTasks(updatedCompletedArr);
     handleDeleteItem(index);
     localStorage.setItem("completeTask", JSON.stringify(updatedCompletedArr));
-  };
-
-  const handleEditItem = (index) => {
-    if (index !== null) {
-      let updatedTodoArr = [...allTodos];
-      updatedTodoArr[index] = {
-        title: newTitle,
-        description: newDescription,
-      };
-      setTodos(updatedTodoArr);
-      localStorage.setItem("todolist", JSON.stringify(updatedTodoArr));
-      setNewTitle("");
-      setNewDescription("");
-    }
   };
 
   const handleClearCompletedTasks = () => {
@@ -160,18 +174,36 @@ function App() {
               return (
                 <div className="todo-list-item" key={index}>
                   <div>
-                    <h3>{item.title}</h3>
-                    <p>{item.description}</p>
+                    {isInputEnabled(index) ? (
+                      <>
+                        <input
+                          type="text"
+                          value={editTitle}
+                          onChange={(e) => setEditedTitle(e.target.value)}
+                          disabled={isInputEnabled}
+                          placeholder="Edit Task Title"
+                        />
+                        <input
+                          type="text"
+                          value={editDescription}
+                          onChange={(e) => setEditedDescription(e.target.value)}
+                          disabled={isInputEnabled}
+                          placeholder="Edit Task Description"
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <h3>{item.title}</h3>
+                        <p>{item.description}</p>
+                      </>
+                    )}
                   </div>
                   <div className="icon-area">
                     <AiOutlineDelete
                       className="delete-icon"
                       onClick={handleDeleteItem}
                     />
-                    <CiEdit
-                      className="edit-icon"
-                      onClick={() => handleEditItem(index)}
-                    />
+                    <CiEdit onClick={() => handleInputAndEdit(index)} />
                     <LuCheck
                       className="check-icon"
                       onClick={() => handleCompleted(index)}
