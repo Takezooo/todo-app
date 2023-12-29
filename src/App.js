@@ -14,31 +14,7 @@ function App() {
   const [completedTasks, setCompletedTasks] = useState([]);
   const [enabledIndex, setEnabledIndex] = useState(null);
 
-  const toggleInputEnabled = (index) => {
-    setEnabledIndex((prevIndex) => (prevIndex === index ? null : index));
-  };
-
-  const isInputEnabled = (index) => enabledIndex === index;
-
-  const handleEdit = (index) => {
-    if (index !== null) {
-      let updatedTodoArr = [...allTodos];
-      updatedTodoArr[index] = {
-        title: editTitle,
-        description: editDescription,
-      };
-      setTodos(updatedTodoArr);
-      localStorage.setItem("todolist", JSON.stringify(updatedTodoArr));
-      setEditedTitle("");
-      setEditedDescription("");
-    }
-  };
-
-  const handleInputAndEdit = (index) => {
-    toggleInputEnabled(index);
-    handleEdit(index);
-  };
-
+  // Add Tasks
   const handleAddItem = () => {
     let newTodoItem = {
       title: newTitle,
@@ -63,22 +39,55 @@ function App() {
     }
   };
 
+  // Edit Tasks
+  const handleInputEnabled = (index) => {
+    setEnabledIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
+
+  const isInputEnabled = (index) => enabledIndex === index;
+
+  const handleEdit = (index) => {
+    if (editTitle !== "" && editDescription !== "") {
+      if (index !== null) {
+        let updatedTodoArr = [...allTodos];
+        updatedTodoArr[index] = {
+          title: editTitle,
+          description: editDescription,
+        };
+        setTodos(updatedTodoArr);
+        localStorage.setItem("todolist", JSON.stringify(updatedTodoArr));
+        setEditedTitle("");
+        setEditedDescription("");
+        handleInputEnabled(index);
+      }
+    } else {
+      alert("Please finish editing!");
+    }
+  };
+
+  // Delete Tasks
   const handleDeleteItem = (index) => {
     let removeTodo = [...allTodos];
     removeTodo.splice(index, 1);
     setTodos(removeTodo);
-
     localStorage.setItem("todolist", JSON.stringify(removeTodo));
   };
 
+  //Delete Completed Tasks
   const handleDeleteCompleted = (index) => {
     let removeCompleted = [...completedTasks];
     removeCompleted.splice(index, 1);
     setCompletedTasks(removeCompleted);
-
     localStorage.setItem("completeTask", JSON.stringify(removeCompleted));
   };
 
+  //Delete all completed tasks
+  const handleClearCompletedTasks = () => {
+    setCompletedTasks([]);
+    localStorage.removeItem("completeTask");
+  };
+
+  //Mark tasks as completed
   const handleCompleted = (index) => {
     let now = new Date();
     let dd = now.getDate();
@@ -89,24 +98,21 @@ function App() {
     let s = now.getSeconds();
 
     let completedOn = `${mm}-${dd}-${yyyy} at ${h}:${m}:${s}`;
+    {
+      let filteredItem = {
+        ...allTodos[index],
+        completedOn: completedOn,
+      };
 
-    let filteredItem = {
-      ...allTodos[index],
-      completedOn: completedOn,
-    };
-
-    let updatedCompletedArr = [...completedTasks];
-    updatedCompletedArr.push(filteredItem);
-    setCompletedTasks(updatedCompletedArr);
-    handleDeleteItem(index);
-    localStorage.setItem("completeTask", JSON.stringify(updatedCompletedArr));
+      let updatedCompletedArr = [...completedTasks];
+      updatedCompletedArr.push(filteredItem);
+      setCompletedTasks(updatedCompletedArr);
+      handleDeleteItem(index);
+      localStorage.setItem("completeTask", JSON.stringify(updatedCompletedArr));
+    }
   };
 
-  const handleClearCompletedTasks = () => {
-    setCompletedTasks([]);
-    localStorage.removeItem("completeTask");
-  };
-
+  //fetch saved tasks and completed tasks from localStorage
   useEffect(() => {
     let savedTodo = JSON.parse(localStorage.getItem("todolist"));
     let savedCompleted = JSON.parse(localStorage.getItem("completeTask"));
@@ -119,6 +125,7 @@ function App() {
     }
   }, []);
 
+  //rendering part
   return (
     <div className="App">
       <h1>My Todo List</h1>
@@ -199,15 +206,33 @@ function App() {
                     )}
                   </div>
                   <div className="icon-area">
-                    <AiOutlineDelete
-                      className="delete-icon"
-                      onClick={handleDeleteItem}
-                    />
-                    <CiEdit onClick={() => handleInputAndEdit(index)} />
-                    <LuCheck
-                      className="check-icon"
-                      onClick={() => handleCompleted(index)}
-                    />
+                    {isInputEnabled(index) ? (
+                      <>
+                        <AiOutlineDelete
+                          className="delete-icon"
+                          onClick={() => handleInputEnabled(index)}
+                        />
+                        <LuCheck
+                          className="check-icon"
+                          onClick={() => handleEdit(index)}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <AiOutlineDelete
+                          className="delete-icon"
+                          onClick={() => handleDeleteItem(index)}
+                        />
+                        <CiEdit
+                          className="edit-icon"
+                          onClick={() => handleInputEnabled(index)}
+                        />
+                        <LuCheck
+                          className="check-icon"
+                          onClick={() => handleCompleted(index)}
+                        />
+                      </>
+                    )}
                   </div>
                 </div>
               );
@@ -234,7 +259,7 @@ function App() {
                   <div className="icon-area">
                     <AiOutlineDelete
                       className="delete-icon"
-                      onClick={handleDeleteCompleted}
+                      onClick={() => handleDeleteCompleted(index)}
                     />
                   </div>
                 </div>
