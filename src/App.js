@@ -99,7 +99,8 @@ function App() {
     let s = now.getSeconds();
 
     let completedOn = `${mm}-${dd}-${yyyy} at ${h}:${m}:${s}`;
-    {
+
+    if (window.confirm("Are you sure you want to mark this as completed?")) {
       let filteredItem = {
         ...allTodos[index],
         completedOn: completedOn,
@@ -209,7 +210,7 @@ function App() {
                   <div className="icon-area">
                     {isInputEnabled(index) ? (
                       <>
-                        <MdOutlineCancel 
+                        <MdOutlineCancel
                           className="delete-icon"
                           onClick={() => handleInputEnabled(index)}
                         />
