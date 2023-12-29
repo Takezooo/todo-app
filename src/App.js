@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
+import { MdOutlineCancel } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
 import { LuCheck } from "react-icons/lu";
 import "./App.css";
@@ -208,7 +209,7 @@ function App() {
                   <div className="icon-area">
                     {isInputEnabled(index) ? (
                       <>
-                        <AiOutlineDelete
+                        <MdOutlineCancel 
                           className="delete-icon"
                           onClick={() => handleInputEnabled(index)}
                         />
