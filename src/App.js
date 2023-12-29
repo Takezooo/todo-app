@@ -13,9 +13,11 @@ function App() {
   const [editDescription, setEditedDescription] = useState("");
   const [completedTasks, setCompletedTasks] = useState([]);
   const [enabledIndex, setEnabledIndex] = useState(null);
+  const [IsEnabled, setEnabled] = useState(false);
 
   const toggleInputEnabled = (index) => {
     setEnabledIndex((prevIndex) => (prevIndex === index ? null : index));
+    setEnabled((prevEnabled) => !prevEnabled);
   };
 
   const isInputEnabled = (index) => enabledIndex === index;
@@ -89,17 +91,21 @@ function App() {
     let s = now.getSeconds();
 
     let completedOn = `${mm}-${dd}-${yyyy} at ${h}:${m}:${s}`;
+    if (IsEnabled === false) {
+      let filteredItem = {
+        ...allTodos[index],
+        completedOn: completedOn,
+      };
 
-    let filteredItem = {
-      ...allTodos[index],
-      completedOn: completedOn,
-    };
-
-    let updatedCompletedArr = [...completedTasks];
-    updatedCompletedArr.push(filteredItem);
-    setCompletedTasks(updatedCompletedArr);
-    handleDeleteItem(index);
-    localStorage.setItem("completeTask", JSON.stringify(updatedCompletedArr));
+      let updatedCompletedArr = [...completedTasks];
+      updatedCompletedArr.push(filteredItem);
+      setCompletedTasks(updatedCompletedArr);
+      handleDeleteItem(index);
+      localStorage.setItem("completeTask", JSON.stringify(updatedCompletedArr));
+    }
+    else{
+      alert("Finish Editing first!");
+    }
   };
 
   const handleClearCompletedTasks = () => {
@@ -203,7 +209,9 @@ function App() {
                       className="delete-icon"
                       onClick={handleDeleteItem}
                     />
-                    <CiEdit onClick={() => handleInputAndEdit(index)} />
+                    <CiEdit 
+                      className="edit-icon"
+                      onClick={() => handleInputAndEdit(index)} />
                     <LuCheck
                       className="check-icon"
                       onClick={() => handleCompleted(index)}
