@@ -68,10 +68,12 @@ function App() {
 
   // Delete Tasks
   const handleDeleteItem = (index) => {
-    let removeTodo = [...allTodos];
-    removeTodo.splice(index, 1);
-    setTodos(removeTodo);
-    localStorage.setItem("todolist", JSON.stringify(removeTodo));
+    if (window.confirm("Are you sure you want to delete this task?")) {
+      let removeTodo = [...allTodos];
+      removeTodo.splice(index, 1);
+      setTodos(removeTodo);
+      localStorage.setItem("todolist", JSON.stringify(removeTodo));
+    }
   };
 
   //Delete Completed Tasks
